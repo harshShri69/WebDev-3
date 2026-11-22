@@ -6,16 +6,15 @@ Backend Development – Capstone Project Report
 
 Node.js · Express.js · MongoDB · Mongoose · JWT · Socket.IO
 
-| **Submitted by (Individual Submission)** |                                                  |
+| **Submitted by**                         |                                                  |
 |------------------------------------------|--------------------------------------------------|
 | Name                                     | Harsh Shrivastav                                 |
 | Roll Number                              | 2501730265                                       |
 | Programme                                | B.Tech CSE (AI/ML)                               |
 | Section                                  | D                                                |
 | Institution                              | K.R. Mangalam University                         |
-| Course                                   | Backend Development                              |
-| Project                                  | Project 1 – University Campus Management System  |
-| Team Size                                | 1 (individual project; group work not permitted) |
+| Project                                  | Capstone – University Campus Management System   |
+
 
 ---
 
