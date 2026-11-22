@@ -1,0 +1,5656 @@
+{
+  "info": {
+    "name": "University Campus Management System API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Run \"npm run seed\" first, start the server, then run the folders in order (Collection Runner). Covers success, validation-failure, not-found, unauthorized (401), forbidden (403), duplicate (409) and business-rule cases."
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5000"
+    }
+  ],
+  "item": [
+    {
+      "name": "1. Authentication",
+      "item": [
+        {
+          "name": "Login as admin (success)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Login as admin (success) -> status 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', true); });",
+                  "const d = pm.response.json().data; pm.collectionVariables.set('adminToken', d.accessToken); pm.collectionVariables.set('adminRefresh', d.refreshToken); pm.collectionVariables.set('adminId', d.user._id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@campus.test\",\n  \"password\": \"Admin@123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Login as faculty - Dr. Asha Verma (success)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Login as faculty - Dr. Asha Verma (success) -> status 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', true); });",
+                  "const d = pm.response.json().data; pm.collectionVariables.set('facToken', d.accessToken); pm.collectionVariables.set('facRefresh', d.refreshToken); pm.collectionVariables.set('facId', d.user._id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"asha.verma@campus.test\",\n  \"password\": \"Faculty@123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Login as faculty - Prof. Rahul Mehta (success)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Login as faculty - Prof. Rahul Mehta (success) -> status 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', true); });",
+                  "const d = pm.response.json().data; pm.collectionVariables.set('fac2Token', d.accessToken); pm.collectionVariables.set('fac2Refresh', d.refreshToken); pm.collectionVariables.set('fac2Id', d.user._id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"rahul.mehta@campus.test\",\n  \"password\": \"Faculty@123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Login as student - Aarav (success)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Login as student - Aarav (success) -> status 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', true); });",
+                  "const d = pm.response.json().data; pm.collectionVariables.set('stuToken', d.accessToken); pm.collectionVariables.set('stuRefresh', d.refreshToken); pm.collectionVariables.set('stuId', d.user._id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"aarav@campus.test\",\n  \"password\": \"Student@123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Login as student - Kabir (success)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Login as student - Kabir (success) -> status 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', true); });",
+                  "const d = pm.response.json().data; pm.collectionVariables.set('stu2Token', d.accessToken); pm.collectionVariables.set('stu2Refresh', d.refreshToken); pm.collectionVariables.set('stu2Id', d.user._id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"kabir@campus.test\",\n  \"password\": \"Student@123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Login - wrong password (401)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Login - wrong password (401) -> status 401', () => pm.response.to.have.status(401));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', false); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@campus.test\",\n  \"password\": \"wrong-password\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Login - validation failure: missing fields (400)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Login - validation failure: missing fields (400) -> status 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', false); });",
+                  "pm.test('Field errors returned', () => pm.expect(pm.response.json().errors).to.be.an('array').that.is.not.empty);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"not-an-email\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Register user - admin creates account (201)",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.collectionVariables.set('rand', Date.now().toString().slice(-8));"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Register user - admin creates account (201) -> status 201', () => pm.response.to.have.status(201));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', true); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/register",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "register"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Temp Admin\",\n  \"email\": \"tempadmin{{rand}}@campus.test\",\n  \"password\": \"Admin@1234\",\n  \"role\": \"admin\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Register user - student role forbidden (403)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Register user - student role forbidden (403) -> status 403', () => pm.response.to.have.status(403));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', false); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{stuToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/register",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "register"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"X Y\",\n  \"email\": \"xy@campus.test\",\n  \"password\": \"Password@1\",\n  \"role\": \"admin\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Register user - no token (401)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Register user - no token (401) -> status 401', () => pm.response.to.have.status(401));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', false); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/register",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "register"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"X Y\",\n  \"email\": \"xy@campus.test\",\n  \"password\": \"Password@1\",\n  \"role\": \"admin\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Refresh token - rotation (200)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Refresh token - rotation (200) -> status 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', true); });",
+                  "const d = pm.response.json().data; pm.collectionVariables.set('oldAdminRefresh', pm.collectionVariables.get('adminRefresh')); pm.collectionVariables.set('adminToken', d.accessToken); pm.collectionVariables.set('adminRefresh', d.refreshToken);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/refresh",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "refresh"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"refreshToken\": \"{{adminRefresh}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Refresh token - reuse of old token rejected (401)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Refresh token - reuse of old token rejected (401) -> status 401', () => pm.response.to.have.status(401));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', false); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/refresh",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "refresh"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"refreshToken\": \"{{oldAdminRefresh}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Refresh token - garbage token (401)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Refresh token - garbage token (401) -> status 401', () => pm.response.to.have.status(401));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', false); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/refresh",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "refresh"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"refreshToken\": \"abc.def.ghi\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Logout - invalidates refresh token (200)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Logout - invalidates refresh token (200) -> status 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', true); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/logout",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "logout"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"refreshToken\": \"{{adminRefresh}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Refresh after logout (401)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Refresh after logout (401) -> status 401', () => pm.response.to.have.status(401));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', false); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/refresh",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "refresh"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"refreshToken\": \"{{adminRefresh}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Login as admin again",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Login as admin again -> status 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', true); });",
+                  "const d = pm.response.json().data; pm.collectionVariables.set('adminToken', d.accessToken); pm.collectionVariables.set('adminRefresh', d.refreshToken); pm.collectionVariables.set('adminId', d.user._id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@campus.test\",\n  \"password\": \"Admin@123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. Profile",
+      "item": [
+        {
+          "name": "Get my profile (200)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Get my profile (200) -> status 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', true); });",
+                  "pm.test('Password hash not exposed', () => pm.expect(pm.response.json().data).to.not.have.property('password'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{stuToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/users/me",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "me"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get my profile - no token (401)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Get my profile - no token (401) -> status 401', () => pm.response.to.have.status(401));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', false); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/users/me",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "me"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get my profile - invalid token (401)",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.collectionVariables.set('badToken', 'invalid.jwt.token');"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Get my profile - invalid token (401) -> status 401', () => pm.response.to.have.status(401));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', false); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{badToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/users/me",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "me"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update my profile (200)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Update my profile (200) -> status 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', true); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{stuToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/users/me",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "me"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"phone\": \"9876543210\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Update my profile - role field ignored, nothing left to update (400)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Update my profile - role field ignored, nothing left to update (400) -> status 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', false); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{stuToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/users/me",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "me"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"role\": \"admin\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Update my profile - invalid phone (400)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Update my profile - invalid phone (400) -> status 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', false); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{stuToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/users/me",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "me"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"phone\": \"abc\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "3. Look-up IDs from seed data",
+      "item": [
+        {
+          "name": "Find course CS101",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Find course CS101 -> status 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', true); });",
+                  "pm.collectionVariables.set('courseId', pm.response.json().data[0]._id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/courses?q=CS101",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "courses"
+              ],
+              "query": [
+                {
+                  "key": "q",
+                  "value": "CS101"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Find course CS201",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Find course CS201 -> status 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', true); });",
+                  "pm.collectionVariables.set('course201Id', pm.response.json().data[0]._id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/courses?q=CS201",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "courses"
+              ],
+              "query": [
+                {
+                  "key": "q",
+                  "value": "CS201"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Find course MA101",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Find course MA101 -> status 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', true); });",
+                  "pm.collectionVariables.set('courseMaId', pm.response.json().data[0]._id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/courses?q=MA101",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "courses"
+              ],
+              "query": [
+                {
+                  "key": "q",
+                  "value": "MA101"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Find section CS101-A",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Find section CS101-A -> status 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', true); });",
+                  "const s = pm.response.json().data; pm.collectionVariables.set('sectionAId', s.find(x => x.name === 'A')._id); pm.collectionVariables.set('sectionBId', s.find(x => x.name === 'B')._id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/sections?course={{courseId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "sections"
+              ],
+              "query": [
+                {
+                  "key": "course",
+                  "value": "{{courseId}}"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Find section CS201-A (no faculty yet)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Find section CS201-A (no faculty yet) -> status 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', true); });",
+                  "pm.collectionVariables.set('section201Id', pm.response.json().data[0]._id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/sections?course={{course201Id}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "sections"
+              ],
+              "query": [
+                {
+                  "key": "course",
+                  "value": "{{course201Id}}"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Find section MA101-A",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Find section MA101-A -> status 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', true); });",
+                  "pm.collectionVariables.set('sectionMaId', pm.response.json().data[0]._id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/sections?course={{courseMaId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "sections"
+              ],
+              "query": [
+                {
+                  "key": "course",
+                  "value": "{{courseMaId}}"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Find student aarav",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Find student aarav -> status 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', true); });",
+                  "pm.collectionVariables.set('aaravId', pm.response.json().data[0]._id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/students?q=aarav",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "students"
+              ],
+              "query": [
+                {
+                  "key": "q",
+                  "value": "aarav"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Find student kabir",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Find student kabir -> status 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', true); });",
+                  "pm.collectionVariables.set('kabirId', pm.response.json().data[0]._id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/students?q=kabir",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "students"
+              ],
+              "query": [
+                {
+                  "key": "q",
+                  "value": "kabir"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Find student sara",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Find student sara -> status 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', true); });",
+                  "pm.collectionVariables.set('saraId', pm.response.json().data[0]._id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/students?q=sara",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "students"
+              ],
+              "query": [
+                {
+                  "key": "q",
+                  "value": "sara"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Find student meera",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Find student meera -> status 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', true); });",
+                  "pm.collectionVariables.set('meeraId', pm.response.json().data[0]._id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/students?q=meera",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "students"
+              ],
+              "query": [
+                {
+                  "key": "q",
+                  "value": "meera"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "4. Students (CRUD)",
+      "item": [
+        {
+          "name": "Create student (201)",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.collectionVariables.set('rand', Date.now().toString().slice(-8));"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Create student (201) -> status 201', () => pm.response.to.have.status(201));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', true); });",
+                  "pm.collectionVariables.set('newStudentId', pm.response.json().data._id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/students",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "students"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Test Student\",\n  \"email\": \"ts{{rand}}@campus.test\",\n  \"password\": \"Student@123\",\n  \"rollNumber\": \"T{{rand}}\",\n  \"department\": \"Computer Science\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Create student - duplicate email (409)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Create student - duplicate email (409) -> status 409', () => pm.response.to.have.status(409));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', false); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/students",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "students"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Test Student\",\n  \"email\": \"ts{{rand}}@campus.test\",\n  \"password\": \"Student@123\",\n  \"rollNumber\": \"T{{rand}}\",\n  \"department\": \"Computer Science\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Create student - validation failure (400)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Create student - validation failure (400) -> status 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', false); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/students",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "students"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"A\",\n  \"email\": \"bad\",\n  \"password\": \"123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Create student - as student (403)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Create student - as student (403) -> status 403', () => pm.response.to.have.status(403));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', false); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{stuToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/students",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "students"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Test Student\",\n  \"email\": \"ts{{rand}}@campus.test\",\n  \"password\": \"Student@123\",\n  \"rollNumber\": \"T{{rand}}\",\n  \"department\": \"Computer Science\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "List students with pagination + filter (200)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('List students with pagination + filter (200) -> status 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', true); });",
+                  "const j = pm.response.json(); pm.test('Pagination meta present', () => { pm.expect(j.meta.limit).to.eql(3); pm.expect(j.data.length).to.be.at.most(3); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/students?department=Computer%20Science&page=1&limit=3",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "students"
+              ],
+              "query": [
+                {
+                  "key": "department",
+                  "value": "Computer%20Science"
+                },
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "3"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "List students - faculty sees only own students (200)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('List students - faculty sees only own students (200) -> status 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', true); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{facToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/students",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "students"
+              ]
+            }
+          }
+        },
+        {
+          "name": "List students - student forbidden (403)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('List students - student forbidden (403) -> status 403', () => pm.response.to.have.status(403));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', false); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{stuToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/students",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "students"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get student (200)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Get student (200) -> status 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', true); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/students/{{newStudentId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "students",
+                "{{newStudentId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get student - malformed id (400)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Get student - malformed id (400) -> status 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', false); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/students/not-an-id",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "students",
+                "not-an-id"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get student - not found (404)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Get student - not found (404) -> status 404', () => pm.response.to.have.status(404));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', false); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/students/64b7f0f0f0f0f0f0f0f0f0f0",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "students",
+                "64b7f0f0f0f0f0f0f0f0f0f0"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get student - faculty, student not in their sections (403)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Get student - faculty, student not in their sections (403) -> status 403', () => pm.response.to.have.status(403));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', false); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{facToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/students/{{newStudentId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "students",
+                "{{newStudentId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update student (200)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Update student (200) -> status 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', true); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/students/{{newStudentId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "students",
+                "{{newStudentId}}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"department\": \"Mathematics\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Update student - empty body (400)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Update student - empty body (400) -> status 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', false); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/students/{{newStudentId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "students",
+                "{{newStudentId}}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Delete student (200)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Delete student (200) -> status 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', true); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/students/{{newStudentId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "students",
+                "{{newStudentId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete student with enrolments/attendance (409)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Delete student with enrolments/attendance (409) -> status 409', () => pm.response.to.have.status(409));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', false); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/students/{{aaravId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "students",
+                "{{aaravId}}"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "5. Faculty (CRUD)",
+      "item": [
+        {
+          "name": "Create faculty (201)",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.collectionVariables.set('rand', Date.now().toString().slice(-8));"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Create faculty (201) -> status 201', () => pm.response.to.have.status(201));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', true); });",
+                  "pm.collectionVariables.set('newFacultyId', pm.response.json().data._id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/faculty",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "faculty"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Test Faculty\",\n  \"email\": \"tf{{rand}}@campus.test\",\n  \"password\": \"Faculty@123\",\n  \"employeeId\": \"E{{rand}}\",\n  \"department\": \"Physics\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Create faculty - missing employeeId (400)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Create faculty - missing employeeId (400) -> status 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', false); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/faculty",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "faculty"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"No Id\",\n  \"email\": \"noid@campus.test\",\n  \"password\": \"Faculty@123\",\n  \"department\": \"CS\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Create faculty - as faculty (403)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Create faculty - as faculty (403) -> status 403', () => pm.response.to.have.status(403));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', false); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{facToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/faculty",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "faculty"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Test Faculty\",\n  \"email\": \"tf{{rand}}@campus.test\",\n  \"password\": \"Faculty@123\",\n  \"employeeId\": \"E{{rand}}\",\n  \"department\": \"Physics\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "List faculty (200)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('List faculty (200) -> status 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', true); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/faculty?q=asha",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "faculty"
+              ],
+              "query": [
+                {
+                  "key": "q",
+                  "value": "asha"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get faculty (200)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Get faculty (200) -> status 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', true); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/faculty/{{newFacultyId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "faculty",
+                "{{newFacultyId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update faculty (200)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Update faculty (200) -> status 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', true); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/faculty/{{newFacultyId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "faculty",
+                "{{newFacultyId}}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"department\": \"Chemistry\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Delete faculty (200)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Delete faculty (200) -> status 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', true); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/faculty/{{newFacultyId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "faculty",
+                "{{newFacultyId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete faculty - already deleted (404)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Delete faculty - already deleted (404) -> status 404', () => pm.response.to.have.status(404));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', false); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/faculty/{{newFacultyId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "faculty",
+                "{{newFacultyId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete faculty with sections (409)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Delete faculty with sections (409) -> status 409', () => pm.response.to.have.status(409));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', false); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/faculty/{{facId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "faculty",
+                "{{facId}}"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "6. Courses and Sections (CRUD + faculty assignment)",
+      "item": [
+        {
+          "name": "Create course (201)",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.collectionVariables.set('rand', Date.now().toString().slice(-6));"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Create course (201) -> status 201', () => pm.response.to.have.status(201));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', true); });",
+                  "pm.collectionVariables.set('newCourseId', pm.response.json().data._id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/courses",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "courses"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"code\": \"TST{{rand}}\",\n  \"title\": \"Test Course\",\n  \"department\": \"Computer Science\",\n  \"credits\": 3,\n  \"semester\": 2\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Create course - duplicate code (409)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Create course - duplicate code (409) -> status 409', () => pm.response.to.have.status(409));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', false); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/courses",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "courses"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"code\": \"CS101\",\n  \"title\": \"Dup\",\n  \"department\": \"Computer Science\",\n  \"credits\": 3,\n  \"semester\": 2\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Create course - validation failure (400)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Create course - validation failure (400) -> status 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', false); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/courses",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "courses"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"code\": \"X1\",\n  \"credits\": 99\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Create course - as faculty (403)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Create course - as faculty (403) -> status 403', () => pm.response.to.have.status(403));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', false); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{facToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/courses",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "courses"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"code\": \"F1\",\n  \"title\": \"F\",\n  \"department\": \"CS\",\n  \"credits\": 3,\n  \"semester\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "List courses - student can read, with filter (200)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('List courses - student can read, with filter (200) -> status 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', true); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{stuToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/courses?semester=1&department=Computer%20Science",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "courses"
+              ],
+              "query": [
+                {
+                  "key": "semester",
+                  "value": "1"
+                },
+                {
+                  "key": "department",
+                  "value": "Computer%20Science"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get course (200)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Get course (200) -> status 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', true); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{stuToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/courses/{{newCourseId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "courses",
+                "{{newCourseId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update course (200)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Update course (200) -> status 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', true); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/courses/{{newCourseId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "courses",
+                "{{newCourseId}}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Test Course (updated)\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Create section for new course (201)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Create section for new course (201) -> status 201', () => pm.response.to.have.status(201));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', true); });",
+                  "pm.collectionVariables.set('newSectionId', pm.response.json().data._id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/sections",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "sections"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"course\": \"{{newCourseId}}\",\n  \"name\": \"Z\",\n  \"term\": \"2026-Fall\",\n  \"capacity\": 40\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Create section - duplicate (409)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Create section - duplicate (409) -> status 409', () => pm.response.to.have.status(409));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', false); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/sections",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "sections"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"course\": \"{{newCourseId}}\",\n  \"name\": \"Z\",\n  \"term\": \"2026-Fall\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Create section - unknown course (400)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Create section - unknown course (400) -> status 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', false); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/sections",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "sections"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"course\": \"64b7f0f0f0f0f0f0f0f0f0f0\",\n  \"name\": \"Q\",\n  \"term\": \"2026-Fall\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Assign faculty to section (200)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Assign faculty to section (200) -> status 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', true); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/sections/{{newSectionId}}/faculty",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "sections",
+                "{{newSectionId}}",
+                "faculty"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"faculty\": \"{{fac2Id}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Assign faculty - user is not faculty (400)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Assign faculty - user is not faculty (400) -> status 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', false); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/sections/{{newSectionId}}/faculty",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "sections",
+                "{{newSectionId}}",
+                "faculty"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"faculty\": \"{{aaravId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Update section capacity (200)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Update section capacity (200) -> status 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', true); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/sections/{{newSectionId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "sections",
+                "{{newSectionId}}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"capacity\": 25\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Update section - capacity below enrolment (400)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Update section - capacity below enrolment (400) -> status 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', false); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/sections/{{sectionAId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "sections",
+                "{{sectionAId}}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"capacity\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Get section (200)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Get section (200) -> status 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', true); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{facToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/sections/{{newSectionId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "sections",
+                "{{newSectionId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete course with sections (409)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Delete course with sections (409) -> status 409', () => pm.response.to.have.status(409));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', false); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/courses/{{newCourseId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "courses",
+                "{{newCourseId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete section (200)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Delete section (200) -> status 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', true); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/sections/{{newSectionId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "sections",
+                "{{newSectionId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete course (200)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Delete course (200) -> status 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', true); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/courses/{{newCourseId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "courses",
+                "{{newCourseId}}"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "7. Enrolments",
+      "item": [
+        {
+          "name": "Enrol Sara in CS201-A (201)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Enrol Sara in CS201-A (201) -> status 201', () => pm.response.to.have.status(201));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', true); });",
+                  "pm.collectionVariables.set('enrollmentId', pm.response.json().data._id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/enrollments",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "enrollments"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"student\": \"{{saraId}}\",\n  \"course\": \"{{course201Id}}\",\n  \"section\": \"{{section201Id}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Enrol Sara again - duplicate (409)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Enrol Sara again - duplicate (409) -> status 409', () => pm.response.to.have.status(409));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', false); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/enrollments",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "enrollments"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"student\": \"{{saraId}}\",\n  \"course\": \"{{course201Id}}\",\n  \"section\": \"{{section201Id}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Enrol Sara in full section CS101-A (409)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Enrol Sara in full section CS101-A (409) -> status 409', () => pm.response.to.have.status(409));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', false); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/enrollments",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "enrollments"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"student\": \"{{saraId}}\",\n  \"course\": \"{{courseId}}\",\n  \"section\": \"{{sectionAId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Enrol - section does not belong to course (400)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Enrol - section does not belong to course (400) -> status 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', false); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/enrollments",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "enrollments"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"student\": \"{{meeraId}}\",\n  \"course\": \"{{courseMaId}}\",\n  \"section\": \"{{sectionAId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Enrol - invalid student reference (400)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Enrol - invalid student reference (400) -> status 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', false); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/enrollments",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "enrollments"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"student\": \"{{fac2Id}}\",\n  \"course\": \"{{course201Id}}\",\n  \"section\": \"{{section201Id}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Enrol - as faculty (403)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Enrol - as faculty (403) -> status 403', () => pm.response.to.have.status(403));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', false); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{facToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/enrollments",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "enrollments"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"student\": \"{{meeraId}}\",\n  \"course\": \"{{course201Id}}\",\n  \"section\": \"{{section201Id}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Student views own enrolments (200)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Student views own enrolments (200) -> status 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', true); });",
+                  "pm.test('Only own enrolments', () => pm.response.json().data.every(e => e.student._id === pm.collectionVariables.get('aaravId')));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{stuToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/enrollments",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "enrollments"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Student views another student enrolments (403)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Student views another student enrolments (403) -> status 403', () => pm.response.to.have.status(403));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', false); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{stuToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/enrollments?student={{kabirId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "enrollments"
+              ],
+              "query": [
+                {
+                  "key": "student",
+                  "value": "{{kabirId}}"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Faculty views enrolments of own section (200)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Faculty views enrolments of own section (200) -> status 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', true); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{facToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/enrollments?section={{sectionAId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "enrollments"
+              ],
+              "query": [
+                {
+                  "key": "section",
+                  "value": "{{sectionAId}}"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Faculty views enrolments of other section (403)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Faculty views enrolments of other section (403) -> status 403', () => pm.response.to.have.status(403));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', false); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{facToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/enrollments?section={{sectionMaId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "enrollments"
+              ],
+              "query": [
+                {
+                  "key": "section",
+                  "value": "{{sectionMaId}}"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Remove enrolment (200)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Remove enrolment (200) -> status 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', true); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/enrollments/{{enrollmentId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "enrollments",
+                "{{enrollmentId}}"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "8. Attendance",
+      "item": [
+        {
+          "name": "Mark attendance - faculty, own section (201)",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.collectionVariables.set('session', String(Math.floor(Math.random() * 90000) + 100)); const d = new Date(Date.now() - 86400000); pm.collectionVariables.set('yesterday', d.toISOString().slice(0, 10));"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Mark attendance - faculty, own section (201) -> status 201', () => pm.response.to.have.status(201));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', true); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{facToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/attendance",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "attendance"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"course\": \"{{courseId}}\",\n  \"section\": \"{{sectionAId}}\",\n  \"date\": \"{{yesterday}}\",\n  \"session\": \"{{session}}\",\n  \"records\": [\n    {\n      \"student\": \"{{aaravId}}\",\n      \"status\": \"present\"\n    },\n    {\n      \"student\": \"{{kabirId}}\",\n      \"status\": \"absent\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Mark attendance - duplicate session (409)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Mark attendance - duplicate session (409) -> status 409', () => pm.response.to.have.status(409));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', false); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{facToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/attendance",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "attendance"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"course\": \"{{courseId}}\",\n  \"section\": \"{{sectionAId}}\",\n  \"date\": \"{{yesterday}}\",\n  \"session\": \"{{session}}\",\n  \"records\": [\n    {\n      \"student\": \"{{aaravId}}\",\n      \"status\": \"present\"\n    },\n    {\n      \"student\": \"{{kabirId}}\",\n      \"status\": \"absent\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Mark attendance - faculty not assigned to section (403)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Mark attendance - faculty not assigned to section (403) -> status 403', () => pm.response.to.have.status(403));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', false); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{fac2Token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/attendance",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "attendance"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"course\": \"{{courseId}}\",\n  \"section\": \"{{sectionAId}}\",\n  \"date\": \"{{yesterday}}\",\n  \"session\": \"{{session}}\",\n  \"records\": [\n    {\n      \"student\": \"{{aaravId}}\",\n      \"status\": \"present\"\n    },\n    {\n      \"student\": \"{{kabirId}}\",\n      \"status\": \"absent\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Mark attendance - student role (403)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Mark attendance - student role (403) -> status 403', () => pm.response.to.have.status(403));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', false); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{stuToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/attendance",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "attendance"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"course\": \"{{courseId}}\",\n  \"section\": \"{{sectionAId}}\",\n  \"date\": \"{{yesterday}}\",\n  \"session\": \"{{session}}\",\n  \"records\": [\n    {\n      \"student\": \"{{aaravId}}\",\n      \"status\": \"present\"\n    },\n    {\n      \"student\": \"{{kabirId}}\",\n      \"status\": \"absent\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Mark attendance - no token (401)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Mark attendance - no token (401) -> status 401', () => pm.response.to.have.status(401));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', false); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/attendance",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "attendance"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"course\": \"{{courseId}}\",\n  \"section\": \"{{sectionAId}}\",\n  \"date\": \"{{yesterday}}\",\n  \"session\": \"{{session}}\",\n  \"records\": [\n    {\n      \"student\": \"{{aaravId}}\",\n      \"status\": \"present\"\n    },\n    {\n      \"student\": \"{{kabirId}}\",\n      \"status\": \"absent\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Mark attendance - future date (400)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Mark attendance - future date (400) -> status 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', false); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{facToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/attendance",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "attendance"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"course\": \"{{courseId}}\",\n  \"section\": \"{{sectionAId}}\",\n  \"date\": \"2999-01-01\",\n  \"session\": \"{{session}}\",\n  \"records\": [\n    {\n      \"student\": \"{{aaravId}}\",\n      \"status\": \"present\"\n    },\n    {\n      \"student\": \"{{kabirId}}\",\n      \"status\": \"absent\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Mark attendance - student not enrolled in section (400)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Mark attendance - student not enrolled in section (400) -> status 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', false); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{facToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/attendance",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "attendance"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"course\": \"{{courseId}}\",\n  \"section\": \"{{sectionAId}}\",\n  \"date\": \"{{yesterday}}\",\n  \"session\": 7777,\n  \"records\": [\n    {\n      \"student\": \"{{saraId}}\",\n      \"status\": \"present\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Mark attendance - empty records (400)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Mark attendance - empty records (400) -> status 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', false); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{facToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/attendance",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "attendance"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"course\": \"{{courseId}}\",\n  \"section\": \"{{sectionAId}}\",\n  \"date\": \"{{yesterday}}\",\n  \"session\": \"{{session}}\",\n  \"records\": []\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Student views own attendance (200)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Student views own attendance (200) -> status 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', true); });",
+                  "const j = pm.response.json(); pm.test('Only own records', () => j.data.every(a => a.student._id === pm.collectionVariables.get('aaravId')));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{stuToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/attendance?course={{courseId}}&limit=50",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "attendance"
+              ],
+              "query": [
+                {
+                  "key": "course",
+                  "value": "{{courseId}}"
+                },
+                {
+                  "key": "limit",
+                  "value": "50"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Student views another student attendance (403)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Student views another student attendance (403) -> status 403', () => pm.response.to.have.status(403));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', false); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{stuToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/attendance?student={{kabirId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "attendance"
+              ],
+              "query": [
+                {
+                  "key": "student",
+                  "value": "{{kabirId}}"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Faculty lists attendance of own section by date range (200)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Faculty lists attendance of own section by date range (200) -> status 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', true); });",
+                  "pm.collectionVariables.set('kabirAttendanceId', pm.response.json().data.find(a => a.status === 'absent')._id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{facToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/attendance?section={{sectionAId}}&from=2020-01-01&to=2999-01-01&student={{kabirId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "attendance"
+              ],
+              "query": [
+                {
+                  "key": "section",
+                  "value": "{{sectionAId}}"
+                },
+                {
+                  "key": "from",
+                  "value": "2020-01-01"
+                },
+                {
+                  "key": "to",
+                  "value": "2999-01-01"
+                },
+                {
+                  "key": "student",
+                  "value": "{{kabirId}}"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Faculty lists attendance of other faculty section (403)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Faculty lists attendance of other faculty section (403) -> status 403', () => pm.response.to.have.status(403));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', false); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{facToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/attendance?section={{sectionMaId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "attendance"
+              ],
+              "query": [
+                {
+                  "key": "section",
+                  "value": "{{sectionMaId}}"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Student subject-wise summary (200)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Student subject-wise summary (200) -> status 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', true); });",
+                  "pm.test('Has percentage', () => pm.response.json().data.subjects.forEach(s => pm.expect(s).to.have.property('attendancePercentage')));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{stuToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/attendance/summary",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "attendance",
+                "summary"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Summary of another student as student (403)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Summary of another student as student (403) -> status 403', () => pm.response.to.have.status(403));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', false); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{stuToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/attendance/summary?student={{kabirId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "attendance",
+                "summary"
+              ],
+              "query": [
+                {
+                  "key": "student",
+                  "value": "{{kabirId}}"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Summary by faculty - student id required (400)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Summary by faculty - student id required (400) -> status 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', false); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{facToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/attendance/summary",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "attendance",
+                "summary"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Summary of a student by faculty (200)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Summary of a student by faculty (200) -> status 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', true); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{facToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/attendance/summary?student={{kabirId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "attendance",
+                "summary"
+              ],
+              "query": [
+                {
+                  "key": "student",
+                  "value": "{{kabirId}}"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Correct attendance - with reason, audit trail (200)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Correct attendance - with reason, audit trail (200) -> status 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', true); });",
+                  "pm.test('History entry recorded', () => pm.expect(pm.response.json().data.history.length).to.be.at.least(1));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{facToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/attendance/{{kabirAttendanceId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "attendance",
+                "{{kabirAttendanceId}}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"present\",\n  \"reason\": \"Student was present, marked wrongly\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Correct attendance - same status (400)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Correct attendance - same status (400) -> status 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', false); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{facToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/attendance/{{kabirAttendanceId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "attendance",
+                "{{kabirAttendanceId}}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"present\",\n  \"reason\": \"again\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Correct attendance - reason missing (400)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Correct attendance - reason missing (400) -> status 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', false); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{facToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/attendance/{{kabirAttendanceId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "attendance",
+                "{{kabirAttendanceId}}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"absent\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Correct attendance - other faculty (403)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Correct attendance - other faculty (403) -> status 403', () => pm.response.to.have.status(403));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', false); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{fac2Token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/attendance/{{kabirAttendanceId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "attendance",
+                "{{kabirAttendanceId}}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"absent\",\n  \"reason\": \"not my class\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Correct attendance - student (403)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Correct attendance - student (403) -> status 403', () => pm.response.to.have.status(403));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', false); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{stuToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/attendance/{{kabirAttendanceId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "attendance",
+                "{{kabirAttendanceId}}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"absent\",\n  \"reason\": \"please\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "9. Announcements",
+      "item": [
+        {
+          "name": "Admin creates university announcement (201)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Admin creates university announcement (201) -> status 201', () => pm.response.to.have.status(201));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', true); });",
+                  "pm.collectionVariables.set('announcementId', pm.response.json().data._id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/announcements",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "announcements"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Library timings\",\n  \"body\": \"The library is open until 10 PM.\",\n  \"scope\": \"university\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Faculty creates section announcement (201)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Faculty creates section announcement (201) -> status 201', () => pm.response.to.have.status(201));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', true); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{facToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/announcements",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "announcements"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Assignment 1\",\n  \"body\": \"Submit by Friday.\",\n  \"scope\": \"section\",\n  \"section\": \"{{sectionAId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Faculty creates course announcement (201)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Faculty creates course announcement (201) -> status 201', () => pm.response.to.have.status(201));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', true); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{facToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/announcements",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "announcements"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Course notes\",\n  \"body\": \"Notes uploaded.\",\n  \"scope\": \"course\",\n  \"course\": \"{{courseId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Faculty - university announcement (403)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Faculty - university announcement (403) -> status 403', () => pm.response.to.have.status(403));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', false); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{facToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/announcements",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "announcements"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Nope\",\n  \"body\": \"Not allowed\",\n  \"scope\": \"university\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Faculty - announcement for another faculty section (403)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Faculty - announcement for another faculty section (403) -> status 403', () => pm.response.to.have.status(403));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', false); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{facToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/announcements",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "announcements"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Nope\",\n  \"body\": \"Not allowed\",\n  \"scope\": \"section\",\n  \"section\": \"{{sectionMaId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Student creates announcement (403)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Student creates announcement (403) -> status 403', () => pm.response.to.have.status(403));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', false); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{stuToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/announcements",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "announcements"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Nope\",\n  \"body\": \"Not allowed\",\n  \"scope\": \"university\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Missing section for section scope (400)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Missing section for section scope (400) -> status 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', false); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/announcements",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "announcements"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Bad\",\n  \"body\": \"Missing section\",\n  \"scope\": \"section\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Student retrieves announcements (200)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Student retrieves announcements (200) -> status 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', true); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{stuToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/announcements?limit=20",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "announcements"
+              ],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "20"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Student retrieves one announcement (200)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Student retrieves one announcement (200) -> status 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', true); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{stuToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/announcements/{{announcementId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "announcements",
+                "{{announcementId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Announcement - not found (404)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Announcement - not found (404) -> status 404', () => pm.response.to.have.status(404));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', false); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{stuToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/announcements/64b7f0f0f0f0f0f0f0f0f0f0",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "announcements",
+                "64b7f0f0f0f0f0f0f0f0f0f0"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update announcement (200)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Update announcement (200) -> status 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', true); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/announcements/{{announcementId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "announcements",
+                "{{announcementId}}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Library timings (updated)\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Update announcement - faculty not owner (403)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Update announcement - faculty not owner (403) -> status 403', () => pm.response.to.have.status(403));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', false); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{facToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/announcements/{{announcementId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "announcements",
+                "{{announcementId}}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Hijack\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Delete announcement (200)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Delete announcement (200) -> status 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', true); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/announcements/{{announcementId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "announcements",
+                "{{announcementId}}"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "10. Reports (aggregation pipelines)",
+      "item": [
+        {
+          "name": "Subject-wise attendance summary - admin (200)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Subject-wise attendance summary - admin (200) -> status 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', true); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reports/attendance/summary",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reports",
+                "attendance",
+                "summary"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Subject-wise attendance summary - faculty, own sections (200)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Subject-wise attendance summary - faculty, own sections (200) -> status 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', true); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{facToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reports/attendance/summary?course={{courseId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reports",
+                "attendance",
+                "summary"
+              ],
+              "query": [
+                {
+                  "key": "course",
+                  "value": "{{courseId}}"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Students below attendance threshold 75% (200)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Students below attendance threshold 75% (200) -> status 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', true); });",
+                  "pm.test('All below threshold', () => pm.response.json().data.students.forEach(s => pm.expect(s.attendancePercentage).to.be.below(75)));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reports/attendance/low?threshold=75",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reports",
+                "attendance",
+                "low"
+              ],
+              "query": [
+                {
+                  "key": "threshold",
+                  "value": "75"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Low attendance - custom threshold + pagination (200)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Low attendance - custom threshold + pagination (200) -> status 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', true); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{facToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reports/attendance/low?threshold=90&page=1&limit=5",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reports",
+                "attendance",
+                "low"
+              ],
+              "query": [
+                {
+                  "key": "threshold",
+                  "value": "90"
+                },
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "5"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Low attendance - invalid threshold (400)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Low attendance - invalid threshold (400) -> status 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', false); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reports/attendance/low?threshold=abc",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reports",
+                "attendance",
+                "low"
+              ],
+              "query": [
+                {
+                  "key": "threshold",
+                  "value": "abc"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Low attendance - student forbidden (403)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Low attendance - student forbidden (403) -> status 403', () => pm.response.to.have.status(403));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', false); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{stuToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reports/attendance/low",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reports",
+                "attendance",
+                "low"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Low attendance - faculty other section (403)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Low attendance - faculty other section (403) -> status 403', () => pm.response.to.have.status(403));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', false); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{facToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reports/attendance/low?section={{sectionMaId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reports",
+                "attendance",
+                "low"
+              ],
+              "query": [
+                {
+                  "key": "section",
+                  "value": "{{sectionMaId}}"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Low attendance - no token (401)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Low attendance - no token (401) -> status 401', () => pm.response.to.have.status(401));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', false); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/reports/attendance/low",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reports",
+                "attendance",
+                "low"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Course enrolment counts (200)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Course enrolment counts (200) -> status 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', true); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reports/enrollment/courses",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reports",
+                "enrollment",
+                "courses"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Section-wise enrolment summary (200)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Section-wise enrolment summary (200) -> status 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Response is JSON with success flag', () => { const j = pm.response.json(); pm.expect(j).to.have.property('success', true); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reports/enrollment/sections?term=2026-Fall",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reports",
+                "enrollment",
+                "sections"
+              ],
+              "query": [
+                {
+                  "key": "term",
+                  "value": "2026-Fall"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
